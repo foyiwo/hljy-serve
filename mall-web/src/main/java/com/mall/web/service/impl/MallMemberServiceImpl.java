@@ -7,10 +7,13 @@ import com.mall.common.enumconfig.enumLoginType;
 import com.mall.mbg.Mapper.LMemberMapper;
 import com.mall.mbg.Model.LMember;
 import com.mall.mbg.Model.LMemberExample;
+import com.mall.mbg.Model.LMemberWechat;
 import com.mall.web.bo.MallUserDetails;
+import com.mall.web.config.WeChatConfig;
 import com.mall.web.dto.LoginResultDto;
 import com.mall.web.param.MemberLoginParam;
 import com.mall.web.service.MallMemberService;
+import com.mall.web.util.HttpClientUtil;
 import com.mall.web.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -24,6 +27,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class MallMemberServiceImpl implements MallMemberService {
@@ -32,7 +36,9 @@ public class MallMemberServiceImpl implements MallMemberService {
     @Autowired
     private UserDetailsService userDetailsService;
     @Autowired
-    private JwtTokenUtil       jwtTokenUtil;
+    private JwtTokenUtil jwtTokenUtil;
+    @Autowired
+    private WeChatConfig weChatConfig;
 
     @Override
     public Integer getCurrentMemberId() {
@@ -68,7 +74,16 @@ public class MallMemberServiceImpl implements MallMemberService {
             return lMembers.get(0);
         }
 
-        return new LMember();
+        return null;
+    }
+
+    @Override
+    public Integer getMemberIdByUsername(String username) {
+        LMember lMember = getMemberByUsername(username);
+        if(lMember != null){
+            return lMember.getId();
+        }
+        return 0;
     }
 
     @Override
@@ -144,6 +159,33 @@ public class MallMemberServiceImpl implements MallMemberService {
             return bdmMemberList.get(0);
         }
         return null;
+    }
+
+    @Override
+    public LMemberWechat getMemberWechatByCode(String code) {
+        //-------------通过接口向微信后台获取微信账号信息-----------
+        String accessTokenUrl = "https://api.weixin.qq.com/sns/jscode2session?appid=" + weChatConfig.getWxspAppid() + "&secret=" + weChatConfig.getWxspSecret() + "&js_code=" + code + "&grant_type=authorization_code";
+        //获取access_token
+        Map<String ,Object> result =  HttpClientUtil.doGet(accessTokenUrl);
+        if(result == null || result.isEmpty()){ return  null; }
+        String errcode = (String)result.get("errcode");
+        if(!StringUtils.isEmpty(errcode)){
+            return null;
+        }
+
+        // 用户唯一标识
+        String openid  = (String) result.get("openid");
+        String session_key  = (String) result.get("session_key");
+        // =====================================================================
+
+        LMemberWechat memberWechat = new LMemberWechat();
+        memberWechat.setWxPlatform(1);//1:微信开放平台，2:微信公众平台
+        memberWechat.setOpenId(openid);
+        memberWechat.setSessionKey(session_key);
+
+        return memberWechat;
+
+
     }
 
     public boolean judgeUserNameIsRegister(String username){

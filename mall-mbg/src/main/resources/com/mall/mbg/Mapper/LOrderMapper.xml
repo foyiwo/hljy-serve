@@ -10,6 +10,9 @@
     <result column="pay_status" jdbcType="INTEGER" property="payStatus" />
     <result column="order_amount" jdbcType="DECIMAL" property="orderAmount" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="end_date" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="payment_time" jdbcType="TIMESTAMP" property="paymentTime" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -71,7 +74,7 @@
   </sql>
   <sql id="Base_Column_List">
     order_id, order_sn, bill_date, member_id, order_status, pay_status, order_amount, 
-    remark
+    remark, end_date, payment_time, modify_time
   </sql>
   <select id="selectByExample" parameterType="com.mall.mbg.Model.LOrderExample" resultMap="BaseResultMap">
     select
@@ -106,10 +109,12 @@
   <insert id="insert" parameterType="com.mall.mbg.Model.LOrder">
     insert into l_order (order_id, order_sn, bill_date, 
       member_id, order_status, pay_status, 
-      order_amount, remark)
+      order_amount, remark, end_date, 
+      payment_time, modify_time)
     values (#{orderId,jdbcType=INTEGER}, #{orderSn,jdbcType=VARCHAR}, #{billDate,jdbcType=TIMESTAMP}, 
       #{memberId,jdbcType=INTEGER}, #{orderStatus,jdbcType=INTEGER}, #{payStatus,jdbcType=INTEGER}, 
-      #{orderAmount,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR})
+      #{orderAmount,jdbcType=DECIMAL}, #{remark,jdbcType=VARCHAR}, #{endDate,jdbcType=TIMESTAMP}, 
+      #{paymentTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.mall.mbg.Model.LOrder">
     insert into l_order
@@ -138,6 +143,15 @@
       <if test="remark != null">
         remark,
       </if>
+      <if test="endDate != null">
+        end_date,
+      </if>
+      <if test="paymentTime != null">
+        payment_time,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="orderId != null">
@@ -163,6 +177,15 @@
       </if>
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paymentTime != null">
+        #{paymentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -199,6 +222,15 @@
       <if test="record.remark != null">
         remark = #{record.remark,jdbcType=VARCHAR},
       </if>
+      <if test="record.endDate != null">
+        end_date = #{record.endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.paymentTime != null">
+        payment_time = #{record.paymentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyTime != null">
+        modify_time = #{record.modifyTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -213,7 +245,10 @@
       order_status = #{record.orderStatus,jdbcType=INTEGER},
       pay_status = #{record.payStatus,jdbcType=INTEGER},
       order_amount = #{record.orderAmount,jdbcType=DECIMAL},
-      remark = #{record.remark,jdbcType=VARCHAR}
+      remark = #{record.remark,jdbcType=VARCHAR},
+      end_date = #{record.endDate,jdbcType=TIMESTAMP},
+      payment_time = #{record.paymentTime,jdbcType=TIMESTAMP},
+      modify_time = #{record.modifyTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -242,6 +277,15 @@
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
+      <if test="endDate != null">
+        end_date = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paymentTime != null">
+        payment_time = #{paymentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
     </set>
     where order_id = #{orderId,jdbcType=INTEGER}
   </update>
@@ -253,7 +297,10 @@
       order_status = #{orderStatus,jdbcType=INTEGER},
       pay_status = #{payStatus,jdbcType=INTEGER},
       order_amount = #{orderAmount,jdbcType=DECIMAL},
-      remark = #{remark,jdbcType=VARCHAR}
+      remark = #{remark,jdbcType=VARCHAR},
+      end_date = #{endDate,jdbcType=TIMESTAMP},
+      payment_time = #{paymentTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
     where order_id = #{orderId,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -13,10 +13,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -58,6 +56,20 @@ public class MallOrderController {
             return CommonResult.failed(e.getMessage());
         }
 
+    }
+
+    @ApiOperation(value = "缴费记录导入Excel")
+    @PostMapping(value = "/importOrderByExcel")
+    @ResponseBody
+    public CommonResult importOrderByExcel(@RequestParam("excelFile") MultipartFile excelFile) {
+        try {
+            //读取Excel文件数据
+            String result = mallOrderService.importOrderByExcel(excelFile.getInputStream());
+            return CommonResult.success(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return CommonResult.failed(e.getMessage());
+        }
     }
 
 }

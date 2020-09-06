@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.io.InputStream;
 import java.util.List;
 
 
@@ -19,4 +20,8 @@ import java.util.List;
 public interface MallOrderService {
 
     List<LOrder> orderList(OrderQueryParam orderQueryParam);
+
+    LOrder getOrderByOrderSn(String OrderSn);
+
+    String importOrderByExcel(InputStream inputStream);
 }

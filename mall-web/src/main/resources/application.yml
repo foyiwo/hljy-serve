@@ -31,9 +31,9 @@ wxopen:
 #支付配置
 #微信商户平台
 wxpay:
-    mer_id: 1331778101
+    mer_id: 1602088426
     key:  c38cd37a6d0145568295d30049a8eda0
-    callback: http://www.3c2p.com/wxPay/notifyResult
+    callback: http://hljy.foyiwo.com/api/web/wxPay/notifyResult
 
 #微信公众平台配置(德成在线)
 wxdcpublic:

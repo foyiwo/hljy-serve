@@ -21,6 +21,12 @@ public class LOrder implements Serializable {
 
     private String remark;
 
+    private Date endDate;
+
+    private Date paymentTime;
+
+    private Date modifyTime;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getOrderId() {
@@ -87,6 +93,30 @@ public class LOrder implements Serializable {
         this.remark = remark;
     }
 
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public Date getPaymentTime() {
+        return paymentTime;
+    }
+
+    public void setPaymentTime(Date paymentTime) {
+        this.paymentTime = paymentTime;
+    }
+
+    public Date getModifyTime() {
+        return modifyTime;
+    }
+
+    public void setModifyTime(Date modifyTime) {
+        this.modifyTime = modifyTime;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -106,7 +136,10 @@ public class LOrder implements Serializable {
             && (this.getOrderStatus() == null ? other.getOrderStatus() == null : this.getOrderStatus().equals(other.getOrderStatus()))
             && (this.getPayStatus() == null ? other.getPayStatus() == null : this.getPayStatus().equals(other.getPayStatus()))
             && (this.getOrderAmount() == null ? other.getOrderAmount() == null : this.getOrderAmount().equals(other.getOrderAmount()))
-            && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()));
+            && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
+            && (this.getEndDate() == null ? other.getEndDate() == null : this.getEndDate().equals(other.getEndDate()))
+            && (this.getPaymentTime() == null ? other.getPaymentTime() == null : this.getPaymentTime().equals(other.getPaymentTime()))
+            && (this.getModifyTime() == null ? other.getModifyTime() == null : this.getModifyTime().equals(other.getModifyTime()));
     }
 
     @Override
@@ -121,6 +154,9 @@ public class LOrder implements Serializable {
         result = prime * result + ((getPayStatus() == null) ? 0 : getPayStatus().hashCode());
         result = prime * result + ((getOrderAmount() == null) ? 0 : getOrderAmount().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
+        result = prime * result + ((getEndDate() == null) ? 0 : getEndDate().hashCode());
+        result = prime * result + ((getPaymentTime() == null) ? 0 : getPaymentTime().hashCode());
+        result = prime * result + ((getModifyTime() == null) ? 0 : getModifyTime().hashCode());
         return result;
     }
 }
