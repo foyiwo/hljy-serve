@@ -19,6 +19,8 @@ public class LMember implements Serializable {
 
     private String phone;
 
+    private String className;
+
     private String profession;
 
     private String remark;
@@ -89,6 +91,14 @@ public class LMember implements Serializable {
         this.phone = phone;
     }
 
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
     public String getProfession() {
         return profession;
     }
@@ -125,6 +135,7 @@ public class LMember implements Serializable {
             && (this.getStudentNo() == null ? other.getStudentNo() == null : this.getStudentNo().equals(other.getStudentNo()))
             && (this.getIdCart() == null ? other.getIdCart() == null : this.getIdCart().equals(other.getIdCart()))
             && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()))
+            && (this.getClassName() == null ? other.getClassName() == null : this.getClassName().equals(other.getClassName()))
             && (this.getProfession() == null ? other.getProfession() == null : this.getProfession().equals(other.getProfession()))
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()));
     }
@@ -141,6 +152,7 @@ public class LMember implements Serializable {
         result = prime * result + ((getStudentNo() == null) ? 0 : getStudentNo().hashCode());
         result = prime * result + ((getIdCart() == null) ? 0 : getIdCart().hashCode());
         result = prime * result + ((getPhone() == null) ? 0 : getPhone().hashCode());
+        result = prime * result + ((getClassName() == null) ? 0 : getClassName().hashCode());
         result = prime * result + ((getProfession() == null) ? 0 : getProfession().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         return result;

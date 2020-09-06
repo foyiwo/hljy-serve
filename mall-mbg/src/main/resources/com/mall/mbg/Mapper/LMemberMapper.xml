@@ -10,6 +10,7 @@
     <result column="student_no" jdbcType="VARCHAR" property="studentNo" />
     <result column="id_cart" jdbcType="VARCHAR" property="idCart" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="class_name" jdbcType="VARCHAR" property="className" />
     <result column="profession" jdbcType="VARCHAR" property="profession" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
@@ -72,7 +73,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_name, name, password, code, student_no, id_cart, phone, profession, remark
+    id, user_name, name, password, code, student_no, id_cart, phone, class_name, profession, 
+    remark
   </sql>
   <select id="selectByExample" parameterType="com.mall.mbg.Model.LMemberExample" resultMap="BaseResultMap">
     select
@@ -107,12 +109,12 @@
   <insert id="insert" parameterType="com.mall.mbg.Model.LMember">
     insert into l_member (id, user_name, name, 
       password, code, student_no, 
-      id_cart, phone, profession, 
-      remark)
+      id_cart, phone, class_name, 
+      profession, remark)
     values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{studentNo,jdbcType=VARCHAR}, 
-      #{idCart,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{profession,jdbcType=VARCHAR}, 
-      #{remark,jdbcType=VARCHAR})
+      #{idCart,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{className,jdbcType=VARCHAR}, 
+      #{profession,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.mall.mbg.Model.LMember">
     insert into l_member
@@ -140,6 +142,9 @@
       </if>
       <if test="phone != null">
         phone,
+      </if>
+      <if test="className != null">
+        class_name,
       </if>
       <if test="profession != null">
         profession,
@@ -172,6 +177,9 @@
       </if>
       <if test="phone != null">
         #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="className != null">
+        #{className,jdbcType=VARCHAR},
       </if>
       <if test="profession != null">
         #{profession,jdbcType=VARCHAR},
@@ -214,6 +222,9 @@
       <if test="record.phone != null">
         phone = #{record.phone,jdbcType=VARCHAR},
       </if>
+      <if test="record.className != null">
+        class_name = #{record.className,jdbcType=VARCHAR},
+      </if>
       <if test="record.profession != null">
         profession = #{record.profession,jdbcType=VARCHAR},
       </if>
@@ -235,6 +246,7 @@
       student_no = #{record.studentNo,jdbcType=VARCHAR},
       id_cart = #{record.idCart,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
+      class_name = #{record.className,jdbcType=VARCHAR},
       profession = #{record.profession,jdbcType=VARCHAR},
       remark = #{record.remark,jdbcType=VARCHAR}
     <if test="_parameter != null">
@@ -265,6 +277,9 @@
       <if test="phone != null">
         phone = #{phone,jdbcType=VARCHAR},
       </if>
+      <if test="className != null">
+        class_name = #{className,jdbcType=VARCHAR},
+      </if>
       <if test="profession != null">
         profession = #{profession,jdbcType=VARCHAR},
       </if>
@@ -283,6 +298,7 @@
       student_no = #{studentNo,jdbcType=VARCHAR},
       id_cart = #{idCart,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
+      class_name = #{className,jdbcType=VARCHAR},
       profession = #{profession,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
