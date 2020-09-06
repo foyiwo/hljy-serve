@@ -2,6 +2,7 @@ package com.mall.web.controller;
 
 
 import com.mall.common.api.CommonResult;
+import com.mall.mbg.Model.LMember;
 import com.mall.web.dto.LoginResultDto;
 import com.mall.web.param.MemberLoginParam;
 import com.mall.web.service.MallMemberService;
@@ -32,5 +33,20 @@ public class MallMemberController {
             return CommonResult.failed(e.getMessage());
         }
 
+    }
+
+    @ApiOperation("获取当前登陆的用户")
+    @RequestMapping(value = "/getCurrentMember", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<LMember> getCurrentMember(){
+        try {
+            LMember bdmMember = mallMemberService.getCurrentMember();
+            if(bdmMember != null && bdmMember.getId()>0){
+                return CommonResult.success(bdmMember);
+            }
+        }catch (Exception ex){
+            return CommonResult.failed(ex.getMessage());
+        }
+        return CommonResult.validateFailed("操作异常");
     }
 }

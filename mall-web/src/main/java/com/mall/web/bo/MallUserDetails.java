@@ -30,7 +30,7 @@ public class MallUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return member.getName();
+        return member.getUserName();
     }
 
     @Override
