@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <properties resource="generator.properties"/>
+    <context id="sudaContext" targetRuntime="MyBatis3" defaultModelType="flat">
+
+        <property name="suppressTypeWarnings" value="true"/>
+        <!--覆盖生成XML文件-->
+        <plugin type="org.mybatis.generator.plugins.UnmergeableXmlMappersPlugin" />
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
+        <plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+
+        <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin">
+            <property name="searchString" value="Example$"/>
+            <property name="replaceString" value="Critera"/>
+        </plugin>
+        <plugin type="org.mybatis.generator.plugins.MapperConfigPlugin">
+            <property name="targetPackage" value="config"/>
+            <property name="targetProject" value="resource"/>
+        </plugin>
+
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <jdbcConnection driverClass="${HLJYJdbc.driverClass}"
+                        connectionURL="${HLJYJdbc.connectionURL}"
+                        userId="${HLJYJdbc.userId}"
+                        password="${HLJYJdbc.password}">
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+
+        <javaModelGenerator targetPackage="com.mall.mbg.Model" targetProject="mall-mbg\src\main\java"/>
+
+        <sqlMapGenerator targetPackage="com.mall.mbg.Mapper" targetProject="mall-mbg\src\main\resources"/>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.mall.mbg.Mapper"
+                             targetProject="mall-mbg\src\main\java"/>
+
+
+        <!--生成全部表tableName设为%-->
+
+        <table tableName="l_member">
+<!--            <domainObjectRenamingRule  searchString="^" replaceString="SD5K" />-->
+        </table>
+        <table tableName="l_member_wechat">
+            <!--            <domainObjectRenamingRule  searchString="^" replaceString="SD5K" />-->
+        </table>
+    </context>
+</generatorConfiguration>

@@ -1,0 +1,13 @@
+# Maven #
+target/
+
+# IDEA #
+.idea/
+*.iml
+
+# Eclipse #
+.settings/
+.classpath
+.project
+mall-web/src/main/resources/lib/taobao-sdk-java-auto.jar
+mall-web/src/main/resources/lib/taobao-sdk-java-auto-source.jar

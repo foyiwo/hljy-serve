@@ -1,0 +1,49 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+  profiles:
+    active: dev #默认为开发环境
+
+jwt:
+  tokenHeader: Authorization #JWT存储的请求头
+  secret: webSecretJwt #JWT加解密使用的密钥
+  expiration: 604800 #JWT的超期限时间(60*60*24)
+  tokenHead: webBearer  #JWT负载中拿到开头
+
+logging:
+  level:
+    root: info
+    com.macro.mall: debug
+
+#微信公众平台配置(德成在线)
+wxopen:
+  appid: wx1f1662630ec119b7
+  appsecret: 55184a0cd96938262ac14be9877720f4
+  redirect_url: http://www.3c2p.com #重定向url
+
+  #小程序微信登录
+  wxsp_appid: wx8cce40e71a3bf036
+  wxsp_secret: 53b76a341adc63210fc345dbb0a5a47d
+  wxsp_grant_type: authorization_code  #小程序微信登录
+
+
+#支付配置
+#微信商户平台
+wxpay:
+    mer_id: 1331778101
+    key:  c38cd37a6d0145568295d30049a8eda0
+    callback: http://www.3c2p.com/wxPay/notifyResult
+
+#微信公众平台配置(德成在线)
+wxdcpublic:
+  appid: wx8cce40e71a3bf036
+  appsecret: 53b76a341adc63210fc345dbb0a5a47d
+  redirect_url: https://net.3c2p.com/wx/auth/callback #重定向url
+
+
+
+
+
+
+
