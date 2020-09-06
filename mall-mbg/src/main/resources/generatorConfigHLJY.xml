@@ -52,5 +52,8 @@
         <table tableName="l_member_wechat">
             <!--            <domainObjectRenamingRule  searchString="^" replaceString="SD5K" />-->
         </table>
+        <table tableName="l_order">
+            <!--            <domainObjectRenamingRule  searchString="^" replaceString="SD5K" />-->
+        </table>
     </context>
 </generatorConfiguration>
