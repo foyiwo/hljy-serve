@@ -114,7 +114,7 @@ public class MallOrderServiceImpl implements MallOrderService {
             Integer memberId = this.insertMember(excelDto);
 
             LOrder byOrderSn = this.getOrderByOrderSn(excelDto.getOrderSn());
-            if(byOrderSn != null && byOrderSn.getOrderId() <= 0){
+            if(byOrderSn != null && byOrderSn.getOrderId() != null && byOrderSn.getOrderId() <= 0){
                 continue;
             }
 

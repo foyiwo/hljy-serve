@@ -1,5 +1,6 @@
 package com.mall.web.param;
 
+import cn.hutool.core.date.DateUtil;
 import com.mall.web.util.IpUtil;
 import com.mall.web.util.UUIDUtil;
 import lombok.Data;
@@ -62,7 +63,7 @@ public class WxParam {
         wxParam.setNonce_str(UUIDUtil.uuid());
         wxParam.setSpbill_create_ip(IpUtil.getIpAddr(request));
         wxParam.setTrade_type("JSAPI");
-        wxParam.setOut_trade_no(input.getOrderSn());
+        wxParam.setOut_trade_no(input.getOrderSn()+"-"+DateUtil.currentSeconds());
         wxParam.setBody(input.getBody());//此处用于商品描述，暂时用备注代替
         wxParam.setOpenid(openid);
         wxParam.setTotal_fee((int)(input.getOrderPayAmount()*100));
