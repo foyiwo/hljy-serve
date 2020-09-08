@@ -66,7 +66,7 @@ public class WeChatConfig {
     /**
      * 小程序appid
      */
-    @Value("${wxopen.wxsp_appid}")
+    @Value("${wxdcpublic.appid}")
     private String wxspAppid;
 
     /**

@@ -18,13 +18,13 @@ logging:
 
 #微信公众平台配置(德成在线)
 wxopen:
-  appid: wx1f1662630ec119b7
-  appsecret: 55184a0cd96938262ac14be9877720f4
+  appid: wx4f3c3248f58bc194
+  appsecret: ae8510c3d5c2f0bc01eafae67d9e5e04
   redirect_url: http://www.3c2p.com #重定向url
 
   #小程序微信登录
-  wxsp_appid: wx8cce40e71a3bf036
-  wxsp_secret: 53b76a341adc63210fc345dbb0a5a47d
+  wxsp_appid: wx4f3c3248f58bc194
+  wxsp_secret: ae8510c3d5c2f0bc01eafae67d9e5e04
   wxsp_grant_type: authorization_code  #小程序微信登录
 
 
