@@ -61,11 +61,11 @@ public class MallPaymentController {
     @ApiOperation(value = "轮询是否已经支付")
     @GetMapping("/findIsPay")
     @ResponseBody
-    public CommonResult findOrderIsPay(@RequestParam String orderSn){
+    public CommonResult findOrderIsPay(@RequestParam Integer orderId){
         //logger.info("产品订单的orderSn ====> " + orderSn+" 用户openId ====> "+code+"  小程序支付开始");
         try {
-            if(!StringUtil.isEmpty(orderSn)){
-                OrderStatusDto orderStatus = mallPaymentService.findOrderIsPay(orderSn);
+            if(orderId != null && orderId > 0){
+                OrderStatusDto orderStatus = mallPaymentService.findOrderIsPay(orderId);
                 //支付状态：0->未支付；1->已支付;
                 if (!StringUtils.isEmpty(orderStatus)){
                     return CommonResult.success(orderStatus);

@@ -23,5 +23,5 @@ public interface MallPaymentService {
 	void notifyResult(HttpServletRequest request, HttpServletResponse response) throws Exception;
 
 	/** 轮询该订单是否已支付 */
-	OrderStatusDto findOrderIsPay(String orderSn);
+	OrderStatusDto findOrderIsPay(Integer orderId);
 }

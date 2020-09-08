@@ -18,6 +18,7 @@ import com.mall.web.service.MallMemberService;
 import com.mall.web.service.MallOrderService;
 import com.mall.web.service.MallPaymentService;
 import com.mall.web.util.*;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -94,7 +95,7 @@ public class MallPaymentServiceImpl implements MallPaymentService {
             throw new BadCredentialsException("openid为空，无法支付");
         }
         wxParam.setWxParam(wxParam, input, request, notify_url, openid, wxspAppid, mchId);
-        wxParam.setBody("华联教育学费" + wxParam.getOut_trade_no());
+        wxParam.setBody("华联教育(" + wxParam.getOut_trade_no()+")"+ cn.hutool.core.date.DateUtil.currentSeconds());
         Map<String, String> wxParamTOMap = BeanUtil.convertBeanToMap(wxParam);
         String sign = signature.getSign(wxParamTOMap, weChatConfig.getKey());
         wxParamTOMap.put("sign", sign);
@@ -146,11 +147,12 @@ public class MallPaymentServiceImpl implements MallPaymentService {
      * 轮询该订单是否已支付
      */
     @Override
-    public OrderStatusDto findOrderIsPay(String orderSn) {
-        LOrder bdmOrder = mallOrderService.getOrderByOrderSn(orderSn);
+    public OrderStatusDto findOrderIsPay(Integer orderId) {
+        LOrder bdmOrder = orderMapper.selectByPrimaryKey(orderId);
         //订单状态：0->未确认；1->已确认；2->已完成；3->已取消；4->无效订单 && 支付状态：0->未支付；1->已支付;
+        OrderStatusDto orderStatusDto = new OrderStatusDto();
+        orderStatusDto.setPayStatus(0);
         if (null != bdmOrder && bdmOrder.getOrderId() > 0) {
-            OrderStatusDto orderStatusDto = new OrderStatusDto();
             orderStatusDto.setPayStatus(bdmOrder.getPayStatus());
             orderStatusDto.setOrderStatus(bdmOrder.getOrderStatus());
             if (bdmOrder.getPayStatus() == 1) {
@@ -159,7 +161,7 @@ public class MallPaymentServiceImpl implements MallPaymentService {
                 return orderStatusDto;
             }
         }
-        return null;
+        return orderStatusDto;
     }
 
     /*解析微信请求响应的数据并返回小程序需要的数据*/
