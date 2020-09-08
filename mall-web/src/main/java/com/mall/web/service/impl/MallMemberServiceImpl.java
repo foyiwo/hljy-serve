@@ -117,6 +117,7 @@ public class MallMemberServiceImpl implements MallMemberService {
             }
             token = getLoginTokenByUserName(member.getUserName());
 
+            this.clearMemberWeChat(member.getId());
         }
 
         //判断是否登录成功
@@ -130,6 +131,14 @@ public class MallMemberServiceImpl implements MallMemberService {
         }
 
         return loginResult;
+    }
+
+    private void clearMemberWeChat(Integer memberId){
+        LMemberWechatExample memberWechatExample = new LMemberWechatExample();
+        memberWechatExample.createCriteria()
+                .andMemberIdEqualTo(memberId)
+                .andWxPlatformEqualTo(enumWxPlatformStatusCode.WxPublic.getCode());
+        memberWechatMapper.deleteByExample(memberWechatExample);
     }
 
     @Override
