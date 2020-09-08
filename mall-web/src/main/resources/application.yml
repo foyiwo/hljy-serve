@@ -33,9 +33,9 @@ wxopen:
 wxpay:
     mer_id: 1602088426
     key:  c38cd37a6d0145568295d30049a8eda0
-    callback: http://hljy.foyiwo.com/api/web/wxPay/notifyResult
+    callback: http://hljy.foyiwo.com/api/web/Pay/wxNotifyResult
 
-#微信公众平台配置(德成在线)
+#微信公众平台配置(华联教育)
 wxdcpublic:
   appid: wx4f3c3248f58bc194
   appsecret: ae8510c3d5c2f0bc01eafae67d9e5e04

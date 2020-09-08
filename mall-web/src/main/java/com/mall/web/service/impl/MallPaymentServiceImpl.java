@@ -60,26 +60,18 @@ public class MallPaymentServiceImpl implements MallPaymentService {
     private LLogsMapper logsMapper;
     @Value("${wxpay.mer_id}")
     private String mchId;
-    @Value("${wxopen.wxsp_appid}")
+    @Value("${wxdcpublic.appid}")
     private String wxspAppid;
 
     
     //private static Logger logger = LoggerFactory.getLogger(BdmPaymentServiceImpl.class);
     /*微信通知异步回调*/
-    public static final String notify_url = "https://net.3c2p.com/Pay/wxNotifyResult";
+    public static final String notify_url = "http://hljy.foyiwo.com/api/web/Pay/wxNotifyResult";
 
     @Override
     public Object getOrderPayConfig(OrderPayParam input, Boolean parent) {
         Object res = null;
 
-        if (input == null || input.getOrderSn() == null) {
-            throw new BadCredentialsException("传输参数有误");
-        }
-        LOrder order = orderMapper.selectByPrimaryKey(input.getOrderId());
-        if (order.getPayStatus() == 1) {
-            throw new BadCredentialsException("订单已支付");
-        }
-        input.setOrderPayAmount(order.getOrderAmount().doubleValue());
         try {
             res = this.miniProgramsWxPay(input);
         } catch (Exception e) {
@@ -90,12 +82,19 @@ public class MallPaymentServiceImpl implements MallPaymentService {
 
     private Object miniProgramsWxPay(OrderPayParam input) throws Exception {
 //		"opbgU0XQ7SqU7sgpUr6RZ0j7cLS0";//
-        String openid = mallMemberService.getMemberWechatByCode(input.getWxCode()).getOpenId();
+        LOrder lOrder = orderMapper.selectByPrimaryKey(input.getOrderId());
+
+        input.setBody(lOrder.getRemark());
+        input.setOrderSn(lOrder.getOrderSn());
+        input.setOrderPayAmount(lOrder.getOrderAmount().doubleValue());
+
+        Integer memberId = lOrder.getMemberId();
+        String openid = mallMemberService.getMemberWechatByMemberId(memberId).getOpenId();
         if (StringUtils.isEmpty(openid)) {
-            return null;
+            throw new BadCredentialsException("openid为空，无法支付");
         }
         wxParam.setWxParam(wxParam, input, request, notify_url, openid, wxspAppid, mchId);
-        wxParam.setBody("德成在线订单" + wxParam.getOut_trade_no());
+        wxParam.setBody("华联教育学费" + wxParam.getOut_trade_no());
         Map<String, String> wxParamTOMap = BeanUtil.convertBeanToMap(wxParam);
         String sign = signature.getSign(wxParamTOMap, weChatConfig.getKey());
         wxParamTOMap.put("sign", sign);

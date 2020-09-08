@@ -4,10 +4,13 @@ import cn.hutool.core.util.StrUtil;
 import com.mall.common.api.CommonResult;
 import com.mall.common.api.ResultCode;
 import com.mall.common.enumconfig.enumLoginType;
+import com.mall.common.enumconfig.enumWxPlatformStatusCode;
 import com.mall.mbg.Mapper.LMemberMapper;
+import com.mall.mbg.Mapper.LMemberWechatMapper;
 import com.mall.mbg.Model.LMember;
 import com.mall.mbg.Model.LMemberExample;
 import com.mall.mbg.Model.LMemberWechat;
+import com.mall.mbg.Model.LMemberWechatExample;
 import com.mall.web.bo.MallUserDetails;
 import com.mall.web.config.WeChatConfig;
 import com.mall.web.dto.LoginResultDto;
@@ -32,9 +35,11 @@ import java.util.Map;
 @Component
 public class MallMemberServiceImpl implements MallMemberService {
     @Autowired
-    private LMemberMapper      memberMapper;
+    private LMemberMapper       memberMapper;
     @Autowired
-    private UserDetailsService userDetailsService;
+    private LMemberWechatMapper memberWechatMapper;
+    @Autowired
+    private UserDetailsService  userDetailsService;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
     @Autowired
@@ -186,6 +191,20 @@ public class MallMemberServiceImpl implements MallMemberService {
         return memberWechat;
 
 
+    }
+
+    @Override
+    public LMemberWechat getMemberWechatByMemberId(Integer memberId) {
+        LMemberWechatExample memberWechatExample = new LMemberWechatExample();
+        memberWechatExample.createCriteria()
+                .andMemberIdEqualTo(memberId)
+                .andWxPlatformEqualTo(enumWxPlatformStatusCode.WxPublic.getCode());
+
+        List<LMemberWechat> lMemberWechats = memberWechatMapper.selectByExample(memberWechatExample);
+        if(lMemberWechats != null && lMemberWechats.size() > 0){
+            return lMemberWechats.get(0);
+        }
+        return new LMemberWechat();
     }
 
     public boolean judgeUserNameIsRegister(String username){

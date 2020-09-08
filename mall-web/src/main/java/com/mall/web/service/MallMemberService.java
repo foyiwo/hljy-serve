@@ -33,4 +33,6 @@ public interface MallMemberService {
     LMember getUserByUsername(String username);
 
     LMemberWechat getMemberWechatByCode(String wxCode);
+
+    LMemberWechat getMemberWechatByMemberId(Integer memberId);
 }
