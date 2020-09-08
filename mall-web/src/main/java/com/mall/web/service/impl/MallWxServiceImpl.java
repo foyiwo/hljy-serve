@@ -111,12 +111,8 @@ public class MallWxServiceImpl implements MallWxService {
             //获取access_token
             Map<String ,Object> baseMap =  HttpClientUtil.doGet(accessTokenUrl);
             if(baseMap == null || baseMap.isEmpty()){ return  null; }
-            String unionid  = (String) baseMap.get("unionid");
+            String unionid  = null;//(String) baseMap.get("unionid");
 
-            //如果unionid为空，可能是出现储物，直接返回错误信息
-            if(StringUtils.isEmpty(unionid)){
-                throw  new BadCredentialsException((String) baseMap.get("errmsg"));
-            }
 
             String accessToken = (String)baseMap.get("access_token");
             String refreshToken = (String)baseMap.get("refresh_token");
@@ -166,7 +162,6 @@ public class MallWxServiceImpl implements MallWxService {
             memberWechat.setRefreshToken(refreshToken);
             memberWechat.setSex(sexTemp.toString());
             memberWechat.setLanguage(language);
-            memberWechat.setUnionId(unionid);
 
             //------------开始保存会员数据----
 
