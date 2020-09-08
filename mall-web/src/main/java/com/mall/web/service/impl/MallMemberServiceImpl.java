@@ -211,6 +211,7 @@ public class MallMemberServiceImpl implements MallMemberService {
 
         LMemberExample example = new LMemberExample();
         example.createCriteria().andStudentNoEqualTo(username);
+        example.or().andIdCartEqualTo(username);
         List<LMember> BdmMemberList = memberMapper.selectByExample(example);
         return BdmMemberList.size() > 0;
     }
