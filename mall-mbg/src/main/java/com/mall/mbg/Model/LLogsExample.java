@@ -304,6 +304,76 @@ public class LLogsExample {
             return (Criteria) this;
         }
 
+        public Criteria andOutTradeNoIsNull() {
+            addCriterion("out_trade_no is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutTradeNoIsNotNull() {
+            addCriterion("out_trade_no is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutTradeNoEqualTo(String value) {
+            addCriterion("out_trade_no =", value, "outTradeNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutTradeNoNotEqualTo(String value) {
+            addCriterion("out_trade_no <>", value, "outTradeNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutTradeNoGreaterThan(String value) {
+            addCriterion("out_trade_no >", value, "outTradeNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutTradeNoGreaterThanOrEqualTo(String value) {
+            addCriterion("out_trade_no >=", value, "outTradeNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutTradeNoLessThan(String value) {
+            addCriterion("out_trade_no <", value, "outTradeNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutTradeNoLessThanOrEqualTo(String value) {
+            addCriterion("out_trade_no <=", value, "outTradeNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutTradeNoLike(String value) {
+            addCriterion("out_trade_no like", value, "outTradeNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutTradeNoNotLike(String value) {
+            addCriterion("out_trade_no not like", value, "outTradeNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutTradeNoIn(List<String> values) {
+            addCriterion("out_trade_no in", values, "outTradeNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutTradeNoNotIn(List<String> values) {
+            addCriterion("out_trade_no not in", values, "outTradeNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutTradeNoBetween(String value1, String value2) {
+            addCriterion("out_trade_no between", value1, value2, "outTradeNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutTradeNoNotBetween(String value1, String value2) {
+            addCriterion("out_trade_no not between", value1, value2, "outTradeNo");
+            return (Criteria) this;
+        }
+
         public Criteria andTypeLikeInsensitive(String value) {
             addCriterion("upper(type) like", value.toUpperCase(), "type");
             return (Criteria) this;
@@ -311,6 +381,11 @@ public class LLogsExample {
 
         public Criteria andLogLikeInsensitive(String value) {
             addCriterion("upper(log) like", value.toUpperCase(), "log");
+            return (Criteria) this;
+        }
+
+        public Criteria andOutTradeNoLikeInsensitive(String value) {
+            addCriterion("upper(out_trade_no) like", value.toUpperCase(), "outTradeNo");
             return (Criteria) this;
         }
     }

@@ -5,6 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="type" jdbcType="VARCHAR" property="type" />
     <result column="log" jdbcType="VARCHAR" property="log" />
+    <result column="out_trade_no" jdbcType="VARCHAR" property="outTradeNo" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,7 +66,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, type, log
+    id, type, log, out_trade_no
   </sql>
   <select id="selectByExample" parameterType="com.mall.mbg.Model.LLogsExample" resultMap="BaseResultMap">
     select
@@ -98,10 +99,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.mall.mbg.Model.LLogs">
-    insert into l_logs (id, type, log
-      )
-    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{log,jdbcType=VARCHAR}
-      )
+    insert into l_logs (id, type, log, 
+      out_trade_no)
+    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{log,jdbcType=VARCHAR}, 
+      #{outTradeNo,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.mall.mbg.Model.LLogs">
     insert into l_logs
@@ -115,6 +116,9 @@
       <if test="log != null">
         log,
       </if>
+      <if test="outTradeNo != null">
+        out_trade_no,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -125,6 +129,9 @@
       </if>
       <if test="log != null">
         #{log,jdbcType=VARCHAR},
+      </if>
+      <if test="outTradeNo != null">
+        #{outTradeNo,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -146,6 +153,9 @@
       <if test="record.log != null">
         log = #{record.log,jdbcType=VARCHAR},
       </if>
+      <if test="record.outTradeNo != null">
+        out_trade_no = #{record.outTradeNo,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -155,7 +165,8 @@
     update l_logs
     set id = #{record.id,jdbcType=INTEGER},
       type = #{record.type,jdbcType=VARCHAR},
-      log = #{record.log,jdbcType=VARCHAR}
+      log = #{record.log,jdbcType=VARCHAR},
+      out_trade_no = #{record.outTradeNo,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -169,13 +180,17 @@
       <if test="log != null">
         log = #{log,jdbcType=VARCHAR},
       </if>
+      <if test="outTradeNo != null">
+        out_trade_no = #{outTradeNo,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.mall.mbg.Model.LLogs">
     update l_logs
     set type = #{type,jdbcType=VARCHAR},
-      log = #{log,jdbcType=VARCHAR}
+      log = #{log,jdbcType=VARCHAR},
+      out_trade_no = #{outTradeNo,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

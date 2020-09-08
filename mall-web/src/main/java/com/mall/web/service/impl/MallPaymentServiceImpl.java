@@ -111,16 +111,20 @@ public class MallPaymentServiceImpl implements MallPaymentService {
 //		System.out.println("微信回调request===>"+request);
         //获取微信异步通知的数据
         Map<String, String> paramsToMap = XmlUtil.reqParamsToMap(request);
+        String[] out_trade_nos = paramsToMap.get("out_trade_no").split("-");
+        String orderSn = out_trade_nos[0];
 //		System.out.println("微信回调request===>"+JSONUtil.toJsonStr(paramsToMap));
         LLogs logs = new LLogs();
         logs.setLog(JSONUtil.toJsonStr(paramsToMap));
         logs.setType("wxPay");
+        logs.setOutTradeNo(orderSn);
         logsMapper.insertSelective(logs);
         //校验微信的sign值
         boolean flag = signature.validateSign(paramsToMap, weChatConfig.getKey());
         if (true) {
 //			System.out.println("微信回调订单单号===>"+paramsToMap.get("out_trade_no"));
-            LOrder bdmOrder = mallOrderService.getOrderByOrderSn(paramsToMap.get("out_trade_no"));
+
+            LOrder bdmOrder = mallOrderService.getOrderByOrderSn(orderSn);
 //			System.out.println("微信回调订单实体===>"+bdmOrder.getOrderSn());
             //判断是否是未支付状态
             //支付状态: 0->未支付；1->付款中；2->已付款；
