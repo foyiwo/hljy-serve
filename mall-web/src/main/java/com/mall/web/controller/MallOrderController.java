@@ -49,7 +49,7 @@ public class MallOrderController {
     {
         try {
             OrderQueryParam queryParam = new OrderQueryParam();
-            queryParam.setPatStatus(0);
+//            queryParam.setPatStatus(1);
             List<LOrder> result = mallOrderService.orderList(queryParam);
             return CommonResult.success(result);
         }catch (Exception e) {

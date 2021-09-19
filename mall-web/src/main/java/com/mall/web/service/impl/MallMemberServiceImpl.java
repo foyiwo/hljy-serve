@@ -104,7 +104,7 @@ public class MallMemberServiceImpl implements MallMemberService {
                 throw new BadCredentialsException("您的账号或密码还未填写，请注意查看");
             }
             if(!this.judgeUserNameIsRegister(loginParam.getUserName())){
-                throw new BadCredentialsException("检测到该学号不存在，请注意检查");
+                throw new BadCredentialsException("检测到该学号或身份证不存在，请注意检查");
             }
             LMember member = this.getMemberByStudentNoAndIDCart(loginParam.getUserName());
             String sqlPassword = member.getPassword();
